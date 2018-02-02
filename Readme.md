@@ -10,8 +10,8 @@ networks, we finally achieve a `0.975` accuracy on the test set.
 
 Backpropagation Algorithm
 ---
-For the detailed illustration, please go to `[Michael Nielsen's Blog](http://neuralnetworksanddeeplearning.com/index.html)`.<br>
-Different from his blog, we use the `[cross-entropy](https://en.wikipedia.org/wiki/Cross_entropy)` as the cost function and use the softmax as the output activation function. Moreover, according to the work of `[LeCun, Yann, et al](https://link.springer.com/chapter/10.1007/3-540-49430-8_2)`, we optimized our network and finally obtain a 97.5% accuracy.
+For the detailed illustration, please go to [Michael Nielsen's Blog](http://neuralnetworksanddeeplearning.com/index.html).<br>
+Different from his blog, we use the [cross-entropy](https://en.wikipedia.org/wiki/Cross_entropy) as the cost function and use the softmax as the output activation function. Moreover, according to the work of [LeCun, Yann, et al](https://link.springer.com/chapter/10.1007/3-540-49430-8_2), we optimized our network and finally obtain a 97.5% accuracy.
 
 
 Requirement
