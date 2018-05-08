@@ -27,11 +27,11 @@ class Network(object):
 		self.test_loss_path = []
 
 		if self.adaptInitial:
-			np.random.seed(0)
+# 			np.random.seed(0)
 			self.biases = [np.random.normal(0,1.0//math.sqrt(i), size=(j,1)) for i,j in zip(sizes[:-1], sizes[1:])]
 			self.weights = [np.random.normal(0,1.0/math.sqrt(j), size=(i,j)) for i,j in zip(sizes[1:], sizes[:-1])]
 		else:
-			np.random.seed(0)
+# 			np.random.seed(0)
 			self.biases = [np.random.randn(j, 1) for j in sizes[1:]]
 			self.weights = [np.random.randn(i, j) for i, j in zip(sizes[1:], sizes[:-1])]
 
