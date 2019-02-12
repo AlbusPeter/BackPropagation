@@ -55,9 +55,9 @@ def show(image):
 def Getdata():
     training_data = list(read(dataset='training', path='data'))
     testing_data = list(read(dataset='testing', path='data'))
-    training_pixels = [(np.asarray(d[1]).reshape(-1) / 127.5 - 1) for d in training_data]
+    training_pixels = [(np.asarray(d[1]).reshape(-1) / 225.0 - 0.5) for d in training_data]
     training_pixels = [np.reshape(x, (784, 1)) for x in training_pixels]
-    testing_pixels = [(np.asarray(d[1]).reshape(-1) / 127.5 - 1) for d in testing_data]
+    testing_pixels = [(np.asarray(d[1]).reshape(-1) / 225.0 - 0.5) for d in testing_data]
     testing_pixels = [np.reshape(x, (784, 1)) for x in testing_pixels]
 
     training_labels = [d[0] for d in training_data]

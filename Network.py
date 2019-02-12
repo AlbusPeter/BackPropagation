@@ -19,12 +19,13 @@ class Network(object):
 		self.v_momentum_w = [np.zeros((i,j)) for i, j in zip(sizes[1:], sizes[:-1])]
 
 		self.train_acc_path = []
-		self.hold_acc_path = []
 		self.test_acc_path = []
 
 		self.train_loss_path = []
-		self.hold_loss_path = []
 		self.test_loss_path = []
+
+		self.epochs = 0
+		self.mini_batch_size = 0
 
 		if self.adaptInitial:
 # 			np.random.seed(0)
@@ -36,16 +37,14 @@ class Network(object):
 			self.weights = [np.random.randn(i, j) for i, j in zip(sizes[1:], sizes[:-1])]
 
 	def Mini_GD(self, training_data, epochs, mini_batch_size, learning_rate, test_data = None, T = 50, regularization = 'L2', reg_lam = 0.0001):
-		partial = len(training_data) / 6 * 5
-		hold_data = training_data[partial:]
-		training_data = training_data[:partial]
 		num_train = len(training_data)
-		num_hold = len(hold_data)
 
 		if test_data:
 			num_test = len(test_data)
 		self.regularization = regularization
 		self.reg_lam = reg_lam
+		self.epochs = epochs
+		self.mini_batch_size = mini_batch_size
 
 		for i in xrange(epochs):
 			if self.shuffle_status:
@@ -54,20 +53,15 @@ class Network(object):
 			for mini_batch in mini_batches:
 				self.update_mini_batch(mini_batch,learning_rate)
 
-			learning_rate = learning_rate*1.0/(1+i*1.0/T)
+			# learning_rate = learning_rate*1.0/(1+i*1.0/T)
 
-			self.hold_acc_path.append(self.cal_Acc(hold_data, num_hold))
-			self.hold_loss_path.append(self.cal_Loss(hold_data))
-			self.train_acc_path.append(self.cal_Acc(training_data, num_train))
-			self.train_loss_path.append(self.cal_Loss(training_data))
-			if i > 2 and self.hold_acc_path[-3] > self.hold_acc_path[-2] and self.hold_acc_path[-2] > self.hold_acc_path[-1]:
-				break
-			if test_data:
-				self.test_acc_path.append(self.cal_Acc(test_data, num_test))
-				self.test_loss_path.append(self.cal_Loss(test_data))
-				print "Epoch {0}: {1} {2}".format(i, self.cal_Acc(training_data, num_train), self.cal_Loss(training_data))
-			else:
-				print "Epoch {0} complete".format(i)
+				self.train_acc_path.append(self.cal_Acc(training_data, num_train))
+				self.train_loss_path.append(self.cal_Loss(training_data))
+				
+				if test_data:
+					self.test_acc_path.append(self.cal_Acc(test_data, num_test))
+					self.test_loss_path.append(self.cal_Loss(test_data))
+			print "Epoch {0}: train_error:{1} test_error:{2}".format(i, 1-self.train_acc_path[-1], 1-self.test_acc_path[-1])
 
 	def update_mini_batch(self, mini_batch, learning_rate):
 		temp_b = [np.zeros(b.shape) for b in self.biases]
@@ -81,14 +75,14 @@ class Network(object):
 		if self.gradientCheck:
 			self.gradient_Check(x, y, delta_w, delta_b)
 		if self.momentumUpdate:
-			self.v_momentum_b = [self.mu*vb+learning_rate*tb/len(mini_batch)-self.reg_term(b) for vb,tb,b in zip(self.v_momentum_b, temp_b, self.biases)]
-			self.v_momentum_w = [self.mu*vw+learning_rate*tw/len(mini_batch)-self.reg_term(w) for vw,tw,w in zip(self.v_momentum_w, temp_w, self.weights)]
+			self.v_momentum_b = [self.mu*vb+learning_rate*tb-self.reg_term(b) for vb,tb,b in zip(self.v_momentum_b, temp_b, self.biases)]
+			self.v_momentum_w = [self.mu*vw+learning_rate*tw-self.reg_term(w) for vw,tw,w in zip(self.v_momentum_w, temp_w, self.weights)]
 
 			self.weights = [w+vw for w, vw in zip(self.weights, self.v_momentum_w)]
 			self.biases = [b+vb for b, vb in zip(self.biases, self.v_momentum_b)]
 		else:
-			self.weights = [w+learning_rate*nw/len(mini_batch)-self.reg_term(w) for w, nw in zip(self.weights, temp_w)]
-			self.biases = [b+learning_rate*nb/len(mini_batch)-self.reg_term(b) for b, nb in zip(self.biases, temp_b)]
+			self.weights = [w+learning_rate*nw-self.reg_term(w) for w, nw in zip(self.weights, temp_w)]
+			self.biases = [b+learning_rate*nb-self.reg_term(b) for b, nb in zip(self.biases, temp_b)]
 
 	def backprop(self, x, y):
 		temp_b = [np.zeros(b.shape) for b in self.biases]
@@ -205,6 +199,16 @@ class Network(object):
 		print 'difference between weights gradient and numerical approximation is', weights_derivative_diff
 		print 'For Biases' + str(changeWhich_b) + ':'
 		print 'difference between biases gradient and numerical approximation is', biases_derivative_diff
+
+	def plot_error(self, file_name):
+		plt.figure()
+		plt.plot(range(self.epochs*60000/self.mini_batch_size),[1-i for i in self.train_acc_path],label='train')
+		plt.plot(range(self.epochs*60000/self.mini_batch_size),[1-i for i in self.test_acc_path],label='test')
+		plt.legend()
+		plt.xlabel('number of iteration')
+		plt.ylabel('probability of error')
+		plt.savefig(file_name)
+		# plt.show()
 
 def plot3path(line1,label1,line2,label2,line3,label3,ylim,xlabel,ylabel,title):
     if ylim:
