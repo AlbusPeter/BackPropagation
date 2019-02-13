@@ -23,64 +23,64 @@ net.plot_error('5bii50.png')
 #####################################################
 print('Start biii10sigmoid')
 net = Network([784,10,10], gradientCheck = False, shuffle_status = False, activation_func = 'sigmoid', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 500)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.001)
 net.plot_error('biii10sigmoid.png')
 
 print('Start biii10relu')
 net = Network([784,10,10], gradientCheck = False, shuffle_status = False, activation_func = 'relu', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 500)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.001)
 net.plot_error('biii10relu.png')
 
 print('Start biii20sigmoid')
 net = Network([784,20,10], gradientCheck = False, shuffle_status = False, activation_func = 'sigmoid', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 500)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.001)
 net.plot_error('biii20sigmoid.png')
 
 print('Start biii20relu')
 net = Network([784,20,10], gradientCheck = False, shuffle_status = False, activation_func = 'relu', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 500)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.001)
 net.plot_error('biii20relu.png')
 
 print('Start biii50sigmoid')
 net = Network([784,50,10], gradientCheck = False, shuffle_status = False, activation_func = 'sigmoid', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 500)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.001)
 net.plot_error('biii50sigmoid.png')
 
 print('Start biii50relu')
 net = Network([784,50,10], gradientCheck = False, shuffle_status = False, activation_func = 'relu', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 500)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.001)
 net.plot_error('biii50relu.png')
 #####################################################
 
 #####################################################
 print('Start biv10sigmoid')
 net = Network([784,10,10], gradientCheck = False, shuffle_status = False, activation_func = 'sigmoid', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 50)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.0001)
 net.plot_error('biv10sigmoid.png')
 
 print('Start biv10relu')
 net = Network([784,10,10], gradientCheck = False, shuffle_status = False, activation_func = 'relu', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 50)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.0001)
 net.plot_error('biv10relu.png')
 
 print('Start biv20sigmoid')
 net = Network([784,20,10], gradientCheck = False, shuffle_status = False, activation_func = 'sigmoid', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 50)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.0001)
 net.plot_error('biv20sigmoid.png')
 
 print('Start biv20relu')
 net = Network([784,20,10], gradientCheck = False, shuffle_status = False, activation_func = 'relu', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 50)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.0001)
 net.plot_error('biv20relu.png')
 
 print('Start biv50sigmoid')
 net = Network([784,50,10], gradientCheck = False, shuffle_status = False, activation_func = 'sigmoid', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 50)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.0001)
 net.plot_error('biv50sigmoid.png')
 
 print('Start biv50relu')
 net = Network([784,50,10], gradientCheck = False, shuffle_status = False, activation_func = 'relu', adaptInitial = False, momentumUpdate = False)
-net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 50)
+net.Mini_GD(training_data, 3600, 60000, 0.000002, test_data=testing_data, reg_lam = 0.0001)
 net.plot_error('biv50relu.png')
 #####################################################
 
